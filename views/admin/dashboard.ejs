@@ -1,0 +1,145 @@
+<%- include('../partials/header') %>
+
+<main class="admin-container">
+  <h1>Dashboard Admin Medi-Chat</h1>
+
+  <!-- Notifikasi sukses/gagal -->
+  <div id="notif" role="alert" hidden></div>
+
+  <!-- Tab pilihan data -->
+  <div class="admin-tabs">
+    <button type="button" class="btn btn-primary" id="tab-jadwal" data-tab="jadwal">Jadwal Dokter</button>
+    <button type="button" class="btn" id="tab-biaya" data-tab="biaya">Layanan &amp; Biaya</button>
+  </div>
+
+  <!-- Bagian Jadwal -->
+  <section id="section-jadwal">
+    <div class="admin-toolbar">
+      <h2>Jadwal Dokter</h2>
+      <button type="button" class="btn btn-primary" id="btn-tambah-jadwal">+ Tambah Jadwal</button>
+    </div>
+    <div class="table-wrapper" style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>No</th><th>Layanan</th><th>Dokter</th><th>Ruangan</th>
+            <th>Hari</th><th>Jam</th><th>Status</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-jadwal"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Bagian Biaya -->
+  <section id="section-biaya" hidden>
+    <div class="admin-toolbar">
+      <h2>Layanan &amp; Biaya</h2>
+      <button type="button" class="btn btn-primary" id="btn-tambah-biaya">+ Tambah Layanan</button>
+    </div>
+    <div class="table-wrapper" style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>No</th><th>Kategori</th><th>Nama</th><th>Tarif</th>
+            <th>Umum</th><th>Cito</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-biaya"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Modal form jadwal (elemen <dialog> bawaan browser, tanpa CSS tambahan) -->
+  <dialog id="modal-jadwal">
+    <form id="form-jadwal" novalidate>
+      <h3 id="judul-jadwal">Tambah Jadwal</h3>
+      <input type="hidden" name="id">
+
+      <label for="j-layanan">Layanan</label>
+      <input type="text" id="j-layanan" name="layanan" required>
+      <small class="field-error" data-error="layanan"></small>
+
+      <label for="j-dokter">Dokter</label>
+      <input type="text" id="j-dokter" name="dokter" required>
+      <small class="field-error" data-error="dokter"></small>
+
+      <label for="j-ruangan">Ruangan</label>
+      <input type="text" id="j-ruangan" name="ruangan" required>
+      <small class="field-error" data-error="ruangan"></small>
+
+      <label for="j-hari">Hari</label>
+      <input type="text" id="j-hari" name="hari" placeholder="Senin - Jumat" required>
+      <small class="field-error" data-error="hari"></small>
+
+      <label for="j-jam">Jam</label>
+      <input type="text" id="j-jam" name="jam" placeholder="08:00 - 12:00" required>
+      <small class="field-error" data-error="jam"></small>
+
+      <label for="j-status">Status</label>
+      <select id="j-status" name="status" required>
+        <option value="Tersedia">Tersedia</option>
+        <option value="Penuh">Penuh</option>
+        <option value="Libur">Libur</option>
+      </select>
+      <small class="field-error" data-error="status"></small>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" data-tutup>Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal form biaya -->
+  <dialog id="modal-biaya">
+    <form id="form-biaya" novalidate>
+      <h3 id="judul-biaya">Tambah Layanan</h3>
+      <input type="hidden" name="id">
+
+      <label for="b-kategori">Kategori</label>
+      <select id="b-kategori" name="kategori" required>
+        <option value="Pemeriksaan & Konsultasi Rawat Jalan">Pemeriksaan &amp; Konsultasi Rawat Jalan</option>
+        <option value="Visite & Konsultasi Rawat Inap">Visite &amp; Konsultasi Rawat Inap</option>
+        <option value="Akomodasi Rawat Inap">Akomodasi Rawat Inap</option>
+      </select>
+      <small class="field-error" data-error="kategori"></small>
+
+      <label for="b-nama">Nama</label>
+      <input type="text" id="b-nama" name="nama" required>
+      <small class="field-error" data-error="nama"></small>
+
+      <label for="b-tarif" id="label-tarif">Tarif (Rp)</label>
+      <input type="number" id="b-tarif" name="tarif" min="0" step="1" required>
+      <small class="field-error" data-error="tarif"></small>
+
+      <div id="grup-visite" hidden>
+        <label for="b-umum">Tarif dr. Umum (Rp)</label>
+        <input type="number" id="b-umum" name="umum" min="0" step="1">
+        <small class="field-error" data-error="umum"></small>
+
+        <label for="b-cito">Cito/Libur dr. Spesialis (Rp)</label>
+        <input type="number" id="b-cito" name="cito" min="0" step="1">
+        <small class="field-error" data-error="cito"></small>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" data-tutup>Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal konfirmasi hapus -->
+  <dialog id="modal-hapus">
+    <h3>Hapus data?</h3>
+    <p id="teks-hapus"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn" data-tutup>Batal</button>
+      <button type="button" class="btn btn-danger" id="btn-konfirmasi-hapus">Hapus</button>
+    </div>
+  </dialog>
+</main>
+
+<script src="/js/admin.js"></script>
+<%- include('../partials/footer') %>

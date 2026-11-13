@@ -1,0 +1,19 @@
+{
+  "name": "mvc-express-app",
+  "version": "1.0.0",
+  "description": "Contoh Express.js dengan struktur MVC, EJS, dan Tailwind CDN",
+  "main": "server.js",
+"scripts": {
+  "start": "node server.js",
+  "seed": "node database/seed.js"
+},
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^18.0.9",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.19.0",
+    "mysql2": "^3.24.6",
+    "pg": "^8.23.1"
+  }
+}
