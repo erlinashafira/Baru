@@ -32,9 +32,18 @@
                 </div>
             </form>
         </div>
-
-        <p class="note">Medi-Chat hanya memberi informasi umum dan bukan pengganti konsultasi dengan dokter. Tidak memberikan diagnosis atau resep.</p>
-        <p class="note">Jika Medi-Chat tidak dapat menjawab, hubungi admin: <%= adminContact %></p>
+        <% if (typeof waAdmin !== 'undefined' && waAdmin) { %>
+            <div style="padding: 0 1.2rem 1.2rem;">
+                <a href="https://wa.me/<%= waAdmin %>?text=Halo%20Admin%20Puskesmas,%20saya%20ingin%20bertanya%20mengenai%20layanan." 
+                   target="_blank" 
+                   class="btn-konsultasi" 
+                   style="display: block; text-align: center; background-color: #24cb62; color: white;">
+                   WhatsApp Admin
+                </a>
+            </div>
+        <% } %>
+        <p class="note">Medi-Chat hanya memberi informasi umum dan bukan pengganti konsultasi dengan dokter. Tidak memberikan diagnosis atau resep. Jika Medi-Chat tidak dapat menjawab, hubungi admin: <%= adminContact %></p>
+        <p class="note"></p>
     </main>
 
 <%- include('partials/footer') %>

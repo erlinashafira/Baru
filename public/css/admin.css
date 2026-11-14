@@ -472,7 +472,7 @@ dialog::backdrop {
 }
 
 /* =====================================================
-   MOBILE: TAMPILAN ALA APLIKASI
+   TABLET & LAPTOP KECIL (Maksimal 900px)
    ===================================================== */
 @media (max-width: 900px) {
     :root {
@@ -487,7 +487,6 @@ dialog::backdrop {
         color: var(--primary-color);
     }
 
-    /* Lingkaran cahaya di latar */
     body.dashboard::before {
         content: "";
         position: fixed;
@@ -509,7 +508,6 @@ dialog::backdrop {
         padding: 1.2rem 1rem calc(120px + env(safe-area-inset-bottom));
     }
 
-    /* ----- Top bar ----- */
     .m-top {
         display: flex;
         align-items: center;
@@ -553,7 +551,6 @@ dialog::backdrop {
         color: var(--m-muted);
     }
 
-    /* ----- Kartu statistik ----- */
     .stats {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
@@ -587,7 +584,6 @@ dialog::backdrop {
         color: var(--info-card);
     }
 
-    /* ----- Tabel jadi kartu ----- */
     .panel {
         overflow: visible;
         background: transparent;
@@ -653,9 +649,7 @@ dialog::backdrop {
         color: var(--m-muted);
     }
 
-    /* =========================================
-       BAR MENU BAWAH (HORIZONTAL)
-       ========================================= */
+    /* ===== BAR MENU BAWAH ===== */
     .sidebar {
         position: fixed;
         top: auto;
@@ -663,14 +657,11 @@ dialog::backdrop {
         right: 14px;
         bottom: calc(14px + env(safe-area-inset-bottom));
         z-index: 50;
-        
-        /* Memaksa baris ke samping */
         display: flex; 
         flex-direction: row; 
-
         height: auto;
         padding: 8px;
-        background: rgba(14, 48, 32, 0.85); /* Hijau gelap elegan */
+        background: rgba(14, 48, 32, 0.85);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border: 1px solid var(--m-line);
@@ -683,34 +674,31 @@ dialog::backdrop {
         display: none;
     }
 
-    /* Wadah horizontal untuk 3 menu */
     .side-menu {
         display: flex;
-        flex-direction: row; /* Menyamping */
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
         width: 100%;
         gap: 6px;
     }
 
-    /* Kotak Tab */
+    /* Tampilan Tab untuk Tablet */
     .tab {
         display: flex;
-        flex-direction: row; /* Ikon dan teks sejajar */
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 8px; /* Jarak ikon ke teks */
-        
+        gap: 8px; 
         height: 48px; 
         padding: 0 16px;
         border-radius: 16px; 
-        color: rgba(255, 255, 255, 0.6); /* Putih pudar jika tidak aktif */
+        color: rgba(255, 255, 255, 0.6);
         transition: all 0.3s ease;
-        flex: 0 1 auto; /* Lebar menyesuaikan isi */
+        flex: 0 1 auto; 
         border: 1px solid transparent;
     }
 
-    /* Ikon */
     .tab .ico {
         margin: 0;
         display: flex;
@@ -722,25 +710,21 @@ dialog::backdrop {
         height: 20px; 
     }
 
-    /* Teks */
     .tab .lbl {
         display: block;
-        font-size: 0.8rem; /* Ukuran standar, tidak kekecilan */
+        font-size: 0.8rem; 
         font-weight: 600;
-        white-space: nowrap; /* Teks tidak turun baris */
+        white-space: nowrap; 
     }
 
-    /* =========================================
-       EFEK TAB AKTIF (MEMANJANG)
-       ========================================= */
     .tab.active {
-        flex: 1 1 auto; /* Memaksa kotak melar memanjang ke samping */
+        flex: 1 1 auto; 
         background: #ffffff;
         color: var(--primary-color, #035a2d);
         box-shadow: 
-            0 4px 10px rgba(0, 0, 0, 0.3), /* Bayangan luar */
-            inset 0 -2px 0 rgba(126, 194, 158, 0.8); /* Ilusi 3D */
-        transform: translateY(-4px); /* Efek naik */
+            0 4px 10px rgba(0, 0, 0, 0.3), 
+            inset 0 -2px 0 rgba(126, 194, 158, 0.8);
+        transform: translateY(-4px);
     }
 
     .tab.active .lbl {
@@ -748,7 +732,6 @@ dialog::backdrop {
         font-weight: 800; 
     }
 
-    /* ----- Tombol tambah melayang ----- */
     #btn-tambah {
         position: fixed;
         right: 22px;
@@ -772,7 +755,6 @@ dialog::backdrop {
         line-height: 1;
     }
 
-    /* ----- Form Dialog ----- */
     dialog {
         width: 100%;
         max-width: 100%;
@@ -781,8 +763,42 @@ dialog::backdrop {
     }
 }
 
+/* =====================================================
+   MOBILE KHUSUS (Maksimal 600px)
+   ===================================================== */
 @media (max-width: 600px) {
     .login-glass {
         padding: 2rem 1.2rem;
+    }
+
+    /* Tata letak khusus HP */
+    .side-menu {
+        gap: 4px; 
+    }
+
+    .tab {
+        flex-direction: column; /* Ikon dan teks jadi tumpuk atas-bawah */
+        gap: 4px;
+        padding: 6px 4px;
+        flex: 1; /* Membagi rata 3 kotak */
+        min-width: 0; 
+    }
+
+    .tab .lbl {
+        font-size: 0.65rem; 
+        white-space: normal; /* Biarkan teks turun baris */
+        line-height: 1.1;
+        word-wrap: break-word;
+        text-align: center;
+    }
+
+    .tab .ico svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .tab.active {
+        flex: 1 1 0%; 
+        transform: translateY(-2px);
     }
 }

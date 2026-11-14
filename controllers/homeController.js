@@ -73,5 +73,6 @@ exports.medichat = (req, res) => {
   res.render('medichat', { 
     judul: `Konsultasi - ${config.appName}`,
     isAdmin: req.session && req.session.adminId ? true : false,
+    waAdmin: process.env.WHATSAPP_ADMIN || '' 
    });
 };
