@@ -14,13 +14,8 @@ const INJECTION_PATTERNS = [
   /system\s*prompt/,
   /prompt\s*(sistem|awal|rahasia)/,
   /instruksi\s*(sistem|awal|rahasia)/,
-<<<<<<< HEAD
   //rev
-    /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|(?:your|system|previous|initial)\s+instructions)\b/,
-//   /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|instructions)\b/,
-=======
-  /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|instructions)\b/,
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
+  /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|(?:your|system|previous|initial)\s+instructions)\b/,
   // Mengubah peran
   /\b(kamu|anda|engkau)\s+(sekarang|kini)\s+(adalah|jadi|menjadi)\b/,
   /\byou\s+are\s+now\b/,
@@ -31,20 +26,9 @@ const INJECTION_PATTERNS = [
   /\bbertindaklah?\s+sebagai\b/,
   /\broleplay\s+(as|sebagai)\b/,
   // Jailbreak
-<<<<<<< HEAD
-  //rev
-// Jailbreak
   /jail\s*-?\s*break/,
   /\bdo\s+anything\s+now\b/,
   /\bdeveloper\s+mode\b/,
-//   /jail\s*-?\s*break/,
-//   /\bdan\s+mode\b/,
-//   /\bdeveloper\s+mode\b/,
-=======
-  /jail\s*-?\s*break/,
-  /\bdan\s+mode\b/,
-  /\bdeveloper\s+mode\b/,
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
   /\bmode\s+(pengembang|developer|bebas)\b/,
   // Mengincar API key
   /\b(gemini[_\s-]?api[_\s-]?key|api[_\s-]?key|kunci\s+api)\b/,
@@ -115,8 +99,4 @@ function validateChatInput(req, res, next) {
 }
 
 module.exports = validateChatInput;
-<<<<<<< HEAD
 // module.exports.validateChatInput = validateChatInput; // jaga-jaga kalau di-import bernama
-=======
-module.exports.validateChatInput = validateChatInput; // jaga-jaga kalau di-import bernama
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04

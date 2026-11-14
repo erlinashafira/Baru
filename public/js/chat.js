@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 //rev, file baru
-=======
-// public/js/chat.js
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
 const form = document.getElementById('chat-form');
 const input = document.getElementById('pertanyaan');
 const box = document.getElementById('chat-messages');
@@ -42,10 +38,6 @@ if (form && input && box) {
     }
 
     tambah(q, 'user');
-<<<<<<< HEAD
-=======
-    input.value = '';
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
     aturLoading(true);
 
     const loading = tambah('Medi-Chat sedang mengetik...', 'bot');
@@ -90,7 +82,6 @@ if (form && input && box) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     const q = input.value;
     input.value = '';
     kirim(q);
@@ -103,8 +94,4 @@ if (form && input && box) {
   // Pertanyaan awal lewat URL: /medichat?q=...
   const awal = new URLSearchParams(location.search).get('q');
   if (awal) kirim(awal);
-=======
-    kirim(input.value);
-  });
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
 }

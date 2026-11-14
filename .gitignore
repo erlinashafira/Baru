@@ -1,18 +1,5 @@
 node_modules/
 .env
-<<<<<<< HEAD
-npm-debug.log*
-.DS_Store
-
-
-# ini rev
-# .env.*
-# !.env.example
-# *.log
-# Thumbs.db
-# .vscode/
-# .idea/
-=======
 .env.*
 !.env.example
 npm-debug.log*
@@ -21,4 +8,3 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04

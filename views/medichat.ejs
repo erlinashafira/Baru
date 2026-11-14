@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- rev -->
 <%- include('partials/header', { judul: judul, bodyClass: 'body-chat' }) %>
 
@@ -40,36 +39,3 @@
 
 <%- include('partials/footer') %>
     <script src="/js/chat.js"></script>
-</body>
-</html>
-=======
-<%# views/medichat.ejs %>
-<%- include('partials/header', { judul: judul }) %>
-
-    <section class="page-banner">
-        <h1>Medi-Chat</h1>
-        <p>Tanya seputar layanan Puskesmas dan informasi umum kesehatan</p>
-    </section>
-
-    <main class="page-content">
-        <section class="info-section">
-            <div id="chat-messages" aria-live="polite">
-                <div class="msg bot">Halo! Saya Medi-Chat. Silakan tanya seputar jadwal, layanan, atau biaya Puskesmas.</div>
-            </div>
-
-            <form id="chat-form" autocomplete="off">
-                <input type="text" id="pertanyaan" name="pertanyaan"
-                       maxlength="500" required
-                       placeholder="Tulis pertanyaan Anda..."
-                       aria-label="Pertanyaan">
-                <button type="submit">Kirim</button>
-            </form>
-
-            <p class="note">Medi-Chat tidak memberikan diagnosis atau resep. Untuk keluhan kesehatan, silakan konsultasi ke tenaga medis.</p>
-        </section>
-    </main>
-
-    <script src="/js/chat.js" defer></script>
-
-<%- include('partials/footer') %>
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04

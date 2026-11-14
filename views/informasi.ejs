@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <!-- rev -->
-=======
-<%# views/informasi.ejs %>
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
 <%
   const rp = (v) => (v === null || v === undefined ? '-' : formatRupiah(v));
 %>
@@ -15,10 +11,7 @@
 
     <main class="page-content">
 
-<<<<<<< HEAD
-=======
         <!-- PROSEDUR PENDAFTARAN -->
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
         <section id="pendaftaran" class="info-section">
             <h2>Prosedur Pendaftaran</h2>
             <div class="info-grid">
@@ -35,10 +28,7 @@
             </div>
         </section>
 
-<<<<<<< HEAD
-=======
-        <!-- JADWAL LAYANAN: layanan, dokter, ruangan, hari, jam, status -->
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
+        <!-- JADWAL LAYANAN -->
         <section id="jadwal" class="info-section">
             <h2>Jadwal Layanan</h2>
             <% if (jadwal.length) { %>
@@ -74,10 +64,7 @@
             <p class="note">Jadwal dapat berubah.<% if (adminContact) { %> Konfirmasi ke admin: <%= adminContact %><% } %></p>
         </section>
 
-<<<<<<< HEAD
-=======
-        <!-- BIAYA RAWAT: kategori, nama, tarif, umum, cito -->
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
+        <!-- BIAYA RAWAT -->
         <section id="biaya" class="info-section">
             <h2>Biaya Rawat</h2>
             <% kat.SEMUA.forEach(function (k) {
@@ -129,10 +116,6 @@
         </section>
     </main>
 
-<<<<<<< HEAD
 <%- include('partials/footer') %>
 </body>
 </html>
-=======
-<%- include('partials/footer') %>
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
