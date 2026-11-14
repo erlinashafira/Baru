@@ -41,6 +41,7 @@ exports.index = async (req, res, next) => {
     res.render('index', {
       judul: `${config.appName} - Informasi Layanan Puskesmas`,
       pengumuman,
+      isAdmin: req.session && req.session.adminId ? true : false,
     });
   } catch (error) {
     next(error);
@@ -61,6 +62,7 @@ exports.informasi = async (req, res, next) => {
       kat,
       formatRupiah,
       adminContact: config.adminContact || '',
+       isAdmin: req.session && req.session.adminId ? true : false,
     });
   } catch (error) {
     next(error);
@@ -68,5 +70,8 @@ exports.informasi = async (req, res, next) => {
 };
 
 exports.medichat = (req, res) => {
-  res.render('medichat', { judul: `Konsultasi - ${config.appName}` });
+  res.render('medichat', { 
+    judul: `Konsultasi - ${config.appName}`,
+    isAdmin: req.session && req.session.adminId ? true : false,
+   });
 };

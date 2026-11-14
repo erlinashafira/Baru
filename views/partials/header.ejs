@@ -34,7 +34,11 @@
                     </ul>
                 </li>
                 <li class="mindichat"><a href="/medichat">Medi-Chat</a></li>
-                <li class="tentang"><a href="/admin/login">Login</a></li>
+                <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+                    <li class="tentang"><a href="/admin">Dashboard</a></li>
+                <% } else { %>
+                    <li class="tentang"><a href="/admin/login">Login</a></li>
+                <% } %>
             </ul>
         </nav>
     </header>
