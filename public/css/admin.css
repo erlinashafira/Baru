@@ -89,7 +89,9 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="date"],
-textarea {
+input[type="number"],
+textarea,
+select {
     width: 100%;
     padding: 0.75rem;
     border: 2px solid #d5e3da;
@@ -103,7 +105,8 @@ textarea {
 
 /* Focus state */
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 4px rgba(126, 194, 158, 0.5);
@@ -484,7 +487,7 @@ dialog::backdrop {
         color: var(--primary-color);
     }
 
-    /* Lingkaran cahaya di latar, seperti referensi */
+    /* Lingkaran cahaya di latar */
     body.dashboard::before {
         content: "";
         position: fixed;
@@ -518,7 +521,7 @@ dialog::backdrop {
         font-size: 1.5rem;
         font-weight: bold;
         font-style: italic;
-        color: var(--info-card)
+        color: var(--info-card);
     }
 
     .m-icon {
@@ -550,7 +553,7 @@ dialog::backdrop {
         color: var(--m-muted);
     }
 
-    /* ----- Kartu statistik: 3 kolom kecil ----- */
+    /* ----- Kartu statistik ----- */
     .stats {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
@@ -584,7 +587,7 @@ dialog::backdrop {
         color: var(--info-card);
     }
 
-    /* ----- Tabel jadi daftar kartu ----- */
+    /* ----- Tabel jadi kartu ----- */
     .panel {
         overflow: visible;
         background: transparent;
@@ -610,8 +613,7 @@ dialog::backdrop {
         gap: 12px;
     }
 
-    tbody tr,
-    tbody tr:hover {
+    tbody tr, tbody tr:hover {
         display: block;
         padding: 14px 16px;
         background: var(--m-card);
@@ -647,12 +649,13 @@ dialog::backdrop {
         content: none;
     }
 
-    .empty,
-    .note {
+    .empty, .note {
         color: var(--m-muted);
     }
 
-    /* ----- Bar menu bawah melayang ----- */
+    /* =========================================
+       BAR MENU BAWAH (HORIZONTAL)
+       ========================================= */
     .sidebar {
         position: fixed;
         top: auto;
@@ -660,14 +663,18 @@ dialog::backdrop {
         right: 14px;
         bottom: calc(14px + env(safe-area-inset-bottom));
         z-index: 50;
-        flex-direction: row;
+        
+        /* Memaksa baris ke samping */
+        display: flex; 
+        flex-direction: row; 
+
         height: auto;
-        padding: 10px 12px;
-        background: rgba(14, 48, 32, 0.85);
+        padding: 8px;
+        background: rgba(14, 48, 32, 0.85); /* Hijau gelap elegan */
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border: 1px solid var(--m-line);
-        border-radius: 28px;
+        border-radius: 24px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
     }
 
@@ -676,47 +683,76 @@ dialog::backdrop {
         display: none;
     }
 
+    /* Wadah horizontal untuk 3 menu */
     .side-menu {
-        flex-direction: row;
-        justify-content: space-around;
+        display: flex;
+        flex-direction: row; /* Menyamping */
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
-        gap: 0;
+        gap: 6px;
     }
 
+    /* Kotak Tab */
     .tab {
         display: flex;
+        flex-direction: row; /* Ikon dan teks sejajar */
         align-items: center;
         justify-content: center;
-        width: 52px;
-        height: 52px;
-        padding: 0;
-        border-radius: 50%;
+        gap: 8px; /* Jarak ikon ke teks */
+        
+        height: 48px; 
+        padding: 0 16px;
+        border-radius: 16px; 
+        color: rgba(255, 255, 255, 0.6); /* Putih pudar jika tidak aktif */
+        transition: all 0.3s ease;
+        flex: 0 1 auto; /* Lebar menyesuaikan isi */
+        border: 1px solid transparent;
     }
 
+    /* Ikon */
     .tab .ico {
         margin: 0;
-        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .tab .ico svg { 
+        width: 20px; 
+        height: 20px; 
     }
 
-    .tab .ico svg { width: 24px; height: 24px; }
-    .m-icon svg { width: 20px; height: 20px; }
-
+    /* Teks */
     .tab .lbl {
-        display: none;
+        display: block;
+        font-size: 0.8rem; /* Ukuran standar, tidak kekecilan */
+        font-weight: 600;
+        white-space: nowrap; /* Teks tidak turun baris */
     }
 
-    /* Menu aktif: bulat timbul, seperti tombol tengah di referensi */
+    /* =========================================
+       EFEK TAB AKTIF (MEMANJANG)
+       ========================================= */
     .tab.active {
-        background: linear-gradient(135deg, #9ad8b5, #7ec29e);
-        box-shadow: 0 6px 16px rgba(126, 194, 158, 0.5);
-        transform: translateY(-10px);
+        flex: 1 1 auto; /* Memaksa kotak melar memanjang ke samping */
+        background: #ffffff;
+        color: var(--primary-color, #035a2d);
+        box-shadow: 
+            0 4px 10px rgba(0, 0, 0, 0.3), /* Bayangan luar */
+            inset 0 -2px 0 rgba(126, 194, 158, 0.8); /* Ilusi 3D */
+        transform: translateY(-4px); /* Efek naik */
     }
 
-    /* ----- Tombol tambah: melayang bulat ----- */
+    .tab.active .lbl {
+        font-style: italic;
+        font-weight: 800; 
+    }
+
+    /* ----- Tombol tambah melayang ----- */
     #btn-tambah {
         position: fixed;
         right: 22px;
-        bottom: calc(104px + env(safe-area-inset-bottom));
+        bottom: calc(84px + env(safe-area-inset-bottom));
         z-index: 60;
         width: 56px;
         height: 56px;
@@ -736,7 +772,7 @@ dialog::backdrop {
         line-height: 1;
     }
 
-    /* ----- Form tambah/ubah: muncul dari bawah ----- */
+    /* ----- Form Dialog ----- */
     dialog {
         width: 100%;
         max-width: 100%;
@@ -750,4 +786,3 @@ dialog::backdrop {
         padding: 2rem 1.2rem;
     }
 }
-
