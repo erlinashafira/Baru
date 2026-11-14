@@ -3,7 +3,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const { pool } = require('../config/database');
+const pool = require('../config/database');
 const { RJ, VISITE, AKOMODASI } = require('../utils/kategori');
 
 const jadwalAwal = [

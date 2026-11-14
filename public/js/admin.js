@@ -8,6 +8,26 @@ const AKOMODASI = 'Akomodasi Rawat Inap';
 const KATEGORI = [RJ, VISITE, AKOMODASI];
 const STATUS = ['Tersedia', 'Penuh', 'Libur'];
 
+const HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Senin - Sabtu', 'Senin - Jumat', 'Senin - Kamis'];
+
+// Daftar Tindakan sesuai Kategori
+const TINDAKAN = {
+  [RJ]: [
+    'Pemeriksaan Dokter Spesialis',
+    'Pemeriksaan Dokter Umum',
+    'Pemeriksaan Dokter Gigi',
+    'Konsultasi Gizi',
+    'Asesmen Keperawatan',
+    'Tindakan Medis Ringan'
+  ],
+  [VISITE]: [
+    'Kelas I', 'Kelas II', 'Kelas III', 'VIP', 'ICU/NICU', 'Isolasi / Intermediet'
+  ],
+  [AKOMODASI]: [
+    'Kelas I', 'Kelas II', 'Kelas III', 'VIP', 'ICU/NICU', 'One Day Care'
+  ]
+};
+
 const rupiah = (n) =>
   n === null || n === undefined || n === ''
     ? ''
@@ -23,11 +43,11 @@ const config = {
     judul: 'Jadwal Layanan',
     desk: 'Kelola jadwal dokter umum, dokter gigi, dan imunisasi.',
     fields: [
-      { key: 'layanan', label: 'Layanan', type: 'text' },
-      { key: 'dokter', label: 'Nama Dokter', type: 'text' },
-      { key: 'ruangan', label: 'Ruangan', type: 'text' },
-      { key: 'hari', label: 'Hari', type: 'text' },
-      { key: 'jam', label: 'Jam (08.00 - 12.00)', type: 'text' },
+      { key: 'layanan', label: 'Layanan', type: 'text', placeholder: 'Contoh: Dokter Umum', max: 100 },
+      { key: 'dokter', label: 'Nama Dokter', type: 'text', placeholder: 'Contoh: dr. Andi Pratama', max: 100 },
+      { key: 'ruangan', label: 'Ruangan', type: 'text', placeholder: 'Contoh: Poli Umum', max: 100 },
+      { key: 'hari', label: 'Hari', type: 'select', options: HARI },
+      { key: 'jam', label: 'Jam', type: 'text', placeholder: 'Contoh: 08.00 - 12.00', max: 50 },
       { key: 'status', label: 'Status', type: 'select', options: STATUS },
     ],
   },
@@ -37,7 +57,7 @@ const config = {
     desk: 'Kelola tarif rawat jalan dan rawat inap.',
     fields: [
       { key: 'kategori', label: 'Kategori', type: 'select', options: KATEGORI },
-      { key: 'nama', label: 'Tindakan / Kelas', type: 'text' },
+      { key: 'nama', label: 'Tindakan / Kelas', type: 'dynamic-select', options: TINDAKAN },
       { key: 'tarif', label: 'Tarif (Visite: dr. Spesialis)', type: 'number', rupiah: true },
       { key: 'umum', label: 'Tarif dr. Umum', type: 'number', rupiah: true, only: VISITE },
       { key: 'cito', label: 'Cito/Libur dr. Spesialis', type: 'number', rupiah: true, only: VISITE },
@@ -48,9 +68,9 @@ const config = {
     judul: 'Informasi Puskesmas',
     desk: 'Kelola info terbaru Puskesmas.',
     fields: [
-      { key: 'judul', label: 'Judul', type: 'text' },
+      { key: 'judul', label: 'Judul', type: 'text', placeholder: 'Contoh: Imunisasi Anak', max: 150 },
       { key: 'tanggal', label: 'Tanggal', type: 'date' },
-      { key: 'isi', label: 'Isi Pengumuman', type: 'textarea' },
+      { key: 'isi', label: 'Isi Pengumuman', type: 'textarea', placeholder: 'Tulis detail informasi...' },
     ],
   },
 };
@@ -80,7 +100,7 @@ async function api(method, url, body) {
     throw new Error('Sesi habis, silakan login lagi');
   }
   if (!res.ok || !hasil.success) {
-    throw new Error(hasil.message || 'Terjadi kesalahan');
+    throw new Error(hasil.message || 'Terjadi kesalahan pada server');
   }
   return hasil.data;
 }
@@ -162,12 +182,36 @@ function bukaForm(id = null) {
     if (f.type === 'select') {
       input = el('select');
       f.options.forEach((o) => input.append(new Option(o, o)));
+    } else if (f.type === 'dynamic-select') {
+      input = el('select');
+      const katTerpilih = $('f-kategori') ? $('f-kategori').value : KATEGORI[0];
+      const opsiTindakan = f.options[katTerpilih] || [];
+      opsiTindakan.forEach((o) => input.append(new Option(o, o)));
     } else if (f.type === 'textarea') {
       input = el('textarea', { rows: 3 });
+      if (f.placeholder) input.placeholder = f.placeholder;
     } else if (f.type === 'number') {
       input = el('input', { type: 'number', min: 0, step: 1 });
+    } else if (f.type === 'date') {
+      // Validasi Tanggal: Min hari ini, Max 6 bulan ke depan
+      input = el('input', { type: 'date' });
+      const hariIni = new Date();
+      const formatHariIni = hariIni.toISOString().split('T')[0];
+      
+      const enamBulanKemudian = new Date();
+      enamBulanKemudian.setMonth(enamBulanKemudian.getMonth() + 6);
+      const formatMaksimal = enamBulanKemudian.toISOString().split('T')[0];
+
+      input.min = formatHariIni;
+      input.max = formatMaksimal;
+      
+      if (!item[f.key]) {
+          input.value = formatHariIni; // Default isi dengan hari ini
+      }
     } else {
       input = el('input', { type: f.type });
+      if (f.placeholder) input.placeholder = f.placeholder;
+      if (f.max) input.maxLength = f.max;
     }
 
     input.id = 'f-' + f.key;
@@ -188,9 +232,19 @@ function bukaForm(id = null) {
       n.closest('.field').style.display = tampil ? '' : 'none';
       n.required = tampil;
     });
+    
   if (kat) {
     kat.addEventListener('change', atur);
     atur();
+    
+    if (tab === 'biaya') {
+      kat.addEventListener('change', () => {
+        const selectTindakan = $('f-nama');
+        selectTindakan.innerHTML = ''; 
+        const opsiBaru = TINDAKAN[kat.value] || [];
+        opsiBaru.forEach((o) => selectTindakan.append(new Option(o, o)));
+      });
+    }
   }
 
   $('dlg').showModal();
