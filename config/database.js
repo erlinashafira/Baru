@@ -1,6 +1,8 @@
-<<<<<<< HEAD
+// config/database.js
 //rev dari repo asli
 const { Pool } = require('pg');
+// Memuat dotenv agar process.env terbaca
+require('dotenv').config(); 
 
 const pool = new Pool({
     host: process.env.DB_HOST || 'localhost',
@@ -20,18 +22,3 @@ pool.on('error', (err) => {
 });
 
 module.exports = pool;
-
-// // Koneksi PostgreSQL bersama (sementara, ganti jika tim sudah punya)
-// const { Pool } = require('pg');
-
-// const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
-// module.exports = pool;
-=======
-// Koneksi PostgreSQL bersama (sementara, ganti jika tim sudah punya)
-const { Pool } = require('pg');
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
-module.exports = pool;
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
