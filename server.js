@@ -4,18 +4,12 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const pool = require('./config/database');
-<<<<<<< HEAD
-//ini rev
+
+// Import yang dipakai
 const routes = require('./routes');
 const sendResponse = require('./utils/response');
 const { formatRupiah } = require('./utils/format');
-
 const logger = require('./middlewares/logger');
-// const { sendResponse } = require('./utils/response');
-=======
-const logger = require('./middlewares/logger');
-const { sendResponse } = require('./utils/response');
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
 
 if (!config.sessionSecret) {
   console.error('SESSION_SECRET belum diisi di .env');
@@ -28,27 +22,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware dasar
-<<<<<<< HEAD
-// app.use(logger);
-// app.use(express.json({ limit: '10kb' }));
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('public'));
-// app.use(
-//   session({
-//     secret: config.sessionSecret,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       httpOnly: true,
-//       sameSite: 'lax',
-//       secure: config.nodeEnv === 'production',
-//       maxAge: 1000 * 60 * 60 * 2, // 2 jam
-//     },
-//   })
-// );
-
-//ini rev
-// variabel yang bisa dipakai di semua view
 app.locals.appName = config.appName;
 app.locals.adminContact = config.adminContact;
 app.locals.formatRupiah = formatRupiah;
@@ -57,12 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
-=======
-app.use(logger);
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
+
 app.use(
   session({
     secret: config.sessionSecret,
@@ -77,54 +45,18 @@ app.use(
   })
 );
 
-<<<<<<< HEAD
+// Routes (Pakai routes gabungan yang baru)
 app.use('/', routes);
-=======
-// Routes API
-app.use('/api/admin', require('./routes/adminRoutes'));
-app.use('/api/jadwal', require('./routes/jadwalRoutes'));
-app.use('/api/layanan', require('./routes/layananRoutes'));
-app.use('/api/chat', require('./routes/chatRoutes'));
 
-// Halaman (EJS)
-app.use('/', require('./routes/pageRoutes'));
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
-
-// 404
+// 404 Handler
 app.use((req, res) => {
   if (req.originalUrl.startsWith('/api')) {
-<<<<<<< HEAD
     return sendResponse(res, { code: 404, success: false, message: 'Endpoint tidak ditemukan' });
-=======
-    return sendResponse(res, { code: 404, success: false, message: 'Endpoint tidak ditemukan', data: null });
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
   }
   res.status(404).send('Halaman tidak ditemukan');
 });
 
-<<<<<<< HEAD
-
-// // Routes API
-// app.use('/api/admin', require('./routes/adminRoutes'));
-// app.use('/api/jadwal', require('./routes/jadwalRoutes'));
-// app.use('/api/layanan', require('./routes/layananRoutes'));
-// app.use('/api/chat', require('./routes/chatRoutes'));
-
-// // Halaman (EJS)
-// app.use('/', require('./routes/pageRoutes'));
-
-// // 404
-// app.use((req, res) => {
-//   if (req.originalUrl.startsWith('/api')) {
-//     return sendResponse(res, { code: 404, success: false, message: 'Endpoint tidak ditemukan', data: null });
-//   }
-//   res.status(404).send('Halaman tidak ditemukan');
-// });
-
-=======
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
 // Error handler
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const isJsonError = err.type === 'entity.parse.failed';
   const isTooLarge = err.type === 'entity.too.large';
@@ -141,11 +73,7 @@ app.use((err, req, res, next) => {
     : err.message;
 
   if (req.originalUrl.startsWith('/api')) {
-<<<<<<< HEAD
-    return sendResponse(res, { code, success: false, message}); //, data: null 
-=======
-    return sendResponse(res, { code, success: false, message, data: null });
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
+    return sendResponse(res, { code, success: false, message });
   }
   res.status(code).send(message);
 });
@@ -160,11 +88,7 @@ async function start() {
     process.exit(1);
   }
   app.listen(config.port, () => {
-<<<<<<< HEAD
     console.log(`${config.appName} berjalan di http://localhost:${config.port}`);
-=======
-    console.log(`Medi-Chat berjalan di http://localhost:${config.port}`);
->>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
   });
 }
 
