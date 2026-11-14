@@ -1,0 +1,139 @@
+<<<<<<< HEAD
+<!-- ini rev -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Staf - Medi-Chat</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="login-page">
+    <main class="login-wrap">
+        <div class="login-glass">
+            <a href="/" class="brand brand-center">
+                <img class="logo" src="/assets/logo.png" alt="Medi-Chat Logo">
+                <div>
+                    <h4>Medi-Chat</h4>
+                    <p>Sehat pilihan kita</p>
+                </div>
+            </a>
+
+            <h1>Login Staf</h1>
+            <p class="sub">Khusus admin dan petugas Puskesmas</p>
+
+            <form id="login-form" class="form">
+                <label for="user">Username</label>
+                <input type="text" id="user" autocomplete="username" placeholder="Masukkan username" maxlength="50" required>
+
+                <label for="pass">Password</label>
+                <input type="password" id="pass" autocomplete="current-password" placeholder="Masukkan password" maxlength="128" required>
+
+                <p class="error" id="error" role="alert" hidden>Username atau password salah.</p>
+
+                <button type="submit" class="btn">Masuk</button>
+            </form>
+
+            <a href="/" class="back-link">← Kembali ke website</a>
+        </div>
+    </main>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>
+=======
+<%- include('../partials/header', { title: 'Login Admin - Medi-Chat' }) %>
+
+<main class="login-wrapper">
+  <section class="login-card">
+    <h1>Login Admin</h1>
+    <p>Masuk untuk mengelola jadwal dokter dan layanan.</p>
+
+    <div id="pesan-error" class="alert alert-error" role="alert" style="display:none;"></div>
+
+    <form id="form-login" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" maxlength="50" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" maxlength="128" required>
+      </div>
+
+      <button type="submit" id="btn-login" class="btn btn-primary">Masuk</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  (function () {
+    const form = document.getElementById('form-login');
+    const inputUsername = document.getElementById('username');
+    const inputPassword = document.getElementById('password');
+    const tombol = document.getElementById('btn-login');
+    const pesanError = document.getElementById('pesan-error');
+
+    // Pakai textContent supaya pesan tidak dibaca sebagai HTML
+    function tampilkanError(teks) {
+      pesanError.textContent = teks;
+      pesanError.style.display = 'block';
+    }
+
+    function sembunyikanError() {
+      pesanError.textContent = '';
+      pesanError.style.display = 'none';
+    }
+
+    // Jika sudah login, langsung ke panel admin
+    fetch('/api/admin/me', { credentials: 'same-origin' })
+      .then((r) => r.json())
+      .then((hasil) => {
+        if (hasil && hasil.data && hasil.data.loggedIn) {
+          window.location.href = '/admin';
+        }
+      })
+      .catch(() => {});
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      sembunyikanError();
+
+      const username = inputUsername.value.trim();
+      const password = inputPassword.value;
+
+      if (!username || !password) {
+        tampilkanError('Username dan password wajib diisi');
+        return;
+      }
+
+      tombol.disabled = true;
+      tombol.textContent = 'Memproses...';
+
+      try {
+        const response = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ username, password }),
+        });
+        const hasil = await response.json();
+
+        if (response.ok && hasil.success) {
+          window.location.href = '/admin';
+          return;
+        }
+        tampilkanError(hasil.message || 'Login gagal');
+      } catch (err) {
+        tampilkanError('Tidak dapat terhubung ke server. Coba lagi.');
+      }
+
+      tombol.disabled = false;
+      tombol.textContent = 'Masuk';
+    });
+  })();
+</script>
+
+<%- include('../partials/footer') %>
+>>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04

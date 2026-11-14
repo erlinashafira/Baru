@@ -1,0 +1,242 @@
+<<<<<<< HEAD
+<!-- ini rev -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Medi-Chat</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="dashboard">
+    <div class="admin-layout">
+
+        <!-- SIDEBAR (desktop) / BAR MENU BAWAH (mobile) -->
+        <aside class="sidebar">
+            <a href="/" class="brand">
+                <img class="logo" src="/assets/logo.png" alt="Medi-Chat Logo">
+                <div>
+                    <h4>Medi-Chat</h4>
+                    <p>Panel Admin</p>
+                </div>
+            </a>
+
+            <nav class="side-menu">
+                <button type="button" class="tab active" data-tab="jadwal" title="Jadwal Layanan">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="lbl">Jadwal Layanan</span>
+                </button>
+
+                <button type="button" class="tab" data-tab="biaya" title="Biaya Pengobatan">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span><span class="lbl">Biaya Pengobatan</span>
+                </button>
+
+                <button type="button" class="tab" data-tab="pengumuman" title="Informasi Puskesmas">
+                    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></span><span class="lbl">Informasi Puskesmas</span>
+                </button>
+            </nav>
+
+            <div class="side-foot">
+                <a href="/">Lihat Website</a>
+                <button type="button" class="js-logout">Keluar</button>
+            </div>
+        </aside>
+
+        <!-- KONTEN -->
+        <main class="admin-main">
+
+            <!-- Top bar (hanya tampil di mobile) -->
+            <div class="m-top">
+                <a href="/" class="m-icon" aria-label="Lihat website">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v10a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1z"/></svg>
+                </a>
+                <span class="m-title">Dashboard</span>
+                <button type="button" class="m-icon js-logout" aria-label="Keluar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                </button>
+            </div>
+
+            <div class="admin-top">
+                <div>
+                    <h1 id="judul"></h1>
+                    <p id="deskripsi"></p>
+                </div>
+                <button type="button" class="btn" id="btn-tambah" aria-label="Tambah data">+ Tambah Data</button>
+            </div>
+
+            <section class="stats" id="stats"></section>
+
+            <section class="panel">
+                <div class="table-wrap">
+                    <table>
+                        <thead id="thead"></thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+                <p class="empty" id="empty" hidden>Belum ada data. Klik "Tambah Data".</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- FORM TAMBAH / UBAH -->
+    <dialog id="dlg">
+        <form id="form" class="dlg-form">
+            <h2 id="dlg-title"></h2>
+            <div id="fields"></div>
+            <p class="error" id="form-error" role="alert" hidden></p>
+            <div class="dlg-actions">
+                <button type="button" class="btn btn-outline" id="batal">Batal</button>
+                <button type="submit" class="btn" id="simpan">Simpan</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
+=======
+<%- include('../partials/header') %>
+
+<main class="admin-container">
+  <h1>Dashboard Admin Medi-Chat</h1>
+
+  <!-- Notifikasi sukses/gagal -->
+  <div id="notif" role="alert" hidden></div>
+
+  <!-- Tab pilihan data -->
+  <div class="admin-tabs">
+    <button type="button" class="btn btn-primary" id="tab-jadwal" data-tab="jadwal">Jadwal Dokter</button>
+    <button type="button" class="btn" id="tab-biaya" data-tab="biaya">Layanan &amp; Biaya</button>
+  </div>
+
+  <!-- Bagian Jadwal -->
+  <section id="section-jadwal">
+    <div class="admin-toolbar">
+      <h2>Jadwal Dokter</h2>
+      <button type="button" class="btn btn-primary" id="btn-tambah-jadwal">+ Tambah Jadwal</button>
+    </div>
+    <div class="table-wrapper" style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>No</th><th>Layanan</th><th>Dokter</th><th>Ruangan</th>
+            <th>Hari</th><th>Jam</th><th>Status</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-jadwal"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Bagian Biaya -->
+  <section id="section-biaya" hidden>
+    <div class="admin-toolbar">
+      <h2>Layanan &amp; Biaya</h2>
+      <button type="button" class="btn btn-primary" id="btn-tambah-biaya">+ Tambah Layanan</button>
+    </div>
+    <div class="table-wrapper" style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>No</th><th>Kategori</th><th>Nama</th><th>Tarif</th>
+            <th>Umum</th><th>Cito</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-biaya"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Modal form jadwal (elemen <dialog> bawaan browser, tanpa CSS tambahan) -->
+  <dialog id="modal-jadwal">
+    <form id="form-jadwal" novalidate>
+      <h3 id="judul-jadwal">Tambah Jadwal</h3>
+      <input type="hidden" name="id">
+
+      <label for="j-layanan">Layanan</label>
+      <input type="text" id="j-layanan" name="layanan" required>
+      <small class="field-error" data-error="layanan"></small>
+
+      <label for="j-dokter">Dokter</label>
+      <input type="text" id="j-dokter" name="dokter" required>
+      <small class="field-error" data-error="dokter"></small>
+
+      <label for="j-ruangan">Ruangan</label>
+      <input type="text" id="j-ruangan" name="ruangan" required>
+      <small class="field-error" data-error="ruangan"></small>
+
+      <label for="j-hari">Hari</label>
+      <input type="text" id="j-hari" name="hari" placeholder="Senin - Jumat" required>
+      <small class="field-error" data-error="hari"></small>
+
+      <label for="j-jam">Jam</label>
+      <input type="text" id="j-jam" name="jam" placeholder="08:00 - 12:00" required>
+      <small class="field-error" data-error="jam"></small>
+
+      <label for="j-status">Status</label>
+      <select id="j-status" name="status" required>
+        <option value="Tersedia">Tersedia</option>
+        <option value="Penuh">Penuh</option>
+        <option value="Libur">Libur</option>
+      </select>
+      <small class="field-error" data-error="status"></small>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" data-tutup>Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal form biaya -->
+  <dialog id="modal-biaya">
+    <form id="form-biaya" novalidate>
+      <h3 id="judul-biaya">Tambah Layanan</h3>
+      <input type="hidden" name="id">
+
+      <label for="b-kategori">Kategori</label>
+      <select id="b-kategori" name="kategori" required>
+        <option value="Pemeriksaan & Konsultasi Rawat Jalan">Pemeriksaan &amp; Konsultasi Rawat Jalan</option>
+        <option value="Visite & Konsultasi Rawat Inap">Visite &amp; Konsultasi Rawat Inap</option>
+        <option value="Akomodasi Rawat Inap">Akomodasi Rawat Inap</option>
+      </select>
+      <small class="field-error" data-error="kategori"></small>
+
+      <label for="b-nama">Nama</label>
+      <input type="text" id="b-nama" name="nama" required>
+      <small class="field-error" data-error="nama"></small>
+
+      <label for="b-tarif" id="label-tarif">Tarif (Rp)</label>
+      <input type="number" id="b-tarif" name="tarif" min="0" step="1" required>
+      <small class="field-error" data-error="tarif"></small>
+
+      <div id="grup-visite" hidden>
+        <label for="b-umum">Tarif dr. Umum (Rp)</label>
+        <input type="number" id="b-umum" name="umum" min="0" step="1">
+        <small class="field-error" data-error="umum"></small>
+
+        <label for="b-cito">Cito/Libur dr. Spesialis (Rp)</label>
+        <input type="number" id="b-cito" name="cito" min="0" step="1">
+        <small class="field-error" data-error="cito"></small>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" data-tutup>Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal konfirmasi hapus -->
+  <dialog id="modal-hapus">
+    <h3>Hapus data?</h3>
+    <p id="teks-hapus"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn" data-tutup>Batal</button>
+      <button type="button" class="btn btn-danger" id="btn-konfirmasi-hapus">Hapus</button>
+    </div>
+  </dialog>
+</main>
+
+<script src="/js/admin.js"></script>
+<%- include('../partials/footer') %>
+>>>>>>> 1c16585e22c0336d2320f8943d6bdff4c1209f04
