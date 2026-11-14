@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%# views/informasi.ejs %>
+=======
+<!-- rev -->
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
 <%
   const rp = (v) => (v === null || v === undefined ? '-' : formatRupiah(v));
 %>
@@ -28,7 +32,11 @@
             </div>
         </section>
 
+<<<<<<< HEAD
         <!-- JADWAL LAYANAN: layanan, dokter, ruangan, hari, jam, status -->
+=======
+        <!-- JADWAL LAYANAN -->
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
         <section id="jadwal" class="info-section">
             <h2>Jadwal Layanan</h2>
             <% if (jadwal.length) { %>
@@ -64,7 +72,11 @@
             <p class="note">Jadwal dapat berubah.<% if (adminContact) { %> Konfirmasi ke admin: <%= adminContact %><% } %></p>
         </section>
 
+<<<<<<< HEAD
         <!-- BIAYA RAWAT: kategori, nama, tarif, umum, cito -->
+=======
+        <!-- BIAYA RAWAT -->
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
         <section id="biaya" class="info-section">
             <h2>Biaya Rawat</h2>
             <% kat.SEMUA.forEach(function (k) {
@@ -116,4 +128,10 @@
         </section>
     </main>
 
+<<<<<<< HEAD
 <%- include('partials/footer') %>
+=======
+<%- include('partials/footer') %>
+</body>
+</html>
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5

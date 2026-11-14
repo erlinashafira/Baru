@@ -1,0 +1,82 @@
+<!-- rev -->
+
+<%- include('partials/header', { judul: judul }) %>
+
+    <main>
+        <section id="Hero">
+            <div class="hero-grid">
+                <div class="hero-glass">
+                    <p class="welcome-text">Selamat datang di</p>
+                    <h1>Media Informasi Layanan Kesehatan Puskesmas dan Konsultasi berbasis <span>Medi-Chat</span></h1>
+                    <p class="desc-text"></p>
+                    <a href="/medichat" class="btn-konsultasi">Mulai Konsultasi</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="layanan">
+            <div class="layanan-header">
+                <h2>Layanan Utama</h2>
+                <p>Pilih layanan yang Anda butuhkan untuk mendapatkan Informasi dan bantuan kesehatan dengan mudah dan nyaman</p>
+            </div>
+
+            <div class="card-grid">
+                <article class="card">
+                    <div class="card-icon"></div>
+                    <div class="card-content">
+                        <h3>Prosedur Pendaftaran</h3>
+                        <p>Informasi tata cara pendaftaran pasien di Puskesmas</p>
+                    </div>
+                    <a href="/informasi#pendaftaran" class="card-btn" aria-label="Lihat prosedur pendaftaran">→</a>
+                </article>
+                <article class="card">
+                    <div class="card-icon"></div>
+                    <div class="card-content">
+                        <h3>Biaya Pengobatan</h3>
+                        <p>Informasi biaya pengobatan untuk pasien baik itu rawat inap dan rawat jalan</p>
+                    </div>
+                    <a href="/informasi#biaya" class="card-btn" aria-label="Lihat biaya pengobatan">→</a>
+                </article>
+                <article class="card">
+                    <div class="card-icon"></div>
+                    <div class="card-content">
+                        <h3>Jadwal Layanan</h3>
+                        <p>Informasi layanan di puskesmas, info jadwal layanan, jadwal dokter, dan lain sebagainya</p>
+                    </div>
+                    <a href="/informasi#jadwal" class="card-btn" aria-label="Lihat jadwal layanan">→</a>
+                </article>
+                <article class="card">
+                    <div class="card-icon"></div>
+                    <div class="card-content">
+                        <h3>Konsultasi Kesehatan</h3>
+                        <p>Layanan konsultasi informasi umum puskesmas dan kesehatan berbasis chat bot admin medis</p>
+                    </div>
+                    <a href="/medichat" class="card-btn" aria-label="Buka Medi-Chat">→</a>
+                </article>
+            </div>
+        </section>
+
+        <% if (pengumuman.length) { %>
+        <section id="info-terbaru">
+            <div class="layanan-header">
+                <h2>Informasi Terbaru</h2>
+                <p>Kabar dan pengumuman terbaru dari Puskesmas</p>
+            </div>
+            <div class="card-grid" id="data-info">
+                <% pengumuman.forEach(function (p) { %>
+                <article class="card">
+                    <div class="card-content">
+                        <h3><%= p.judul %></h3>
+                        <small><%= p.tanggalTampil %></small>
+                        <p><%= p.isi %></p>
+                    </div>
+                </article>
+                <% }); %>
+            </div>
+        </section>
+        <% } %>
+    </main>
+
+<%- include('partials/footer') %>
+</body>
+</html>

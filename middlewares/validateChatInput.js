@@ -14,7 +14,12 @@ const INJECTION_PATTERNS = [
   /system\s*prompt/,
   /prompt\s*(sistem|awal|rahasia)/,
   /instruksi\s*(sistem|awal|rahasia)/,
+<<<<<<< HEAD
   /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|instructions)\b/,
+=======
+  //rev
+  /\b(reveal|show|print|repeat|tampilkan|tunjukkan|bocorkan|ungkapkan)\b(?:\s+\S+){0,4}\s+(prompt|instruksimu|(?:your|system|previous|initial)\s+instructions)\b/,
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
   // Mengubah peran
   /\b(kamu|anda|engkau)\s+(sekarang|kini)\s+(adalah|jadi|menjadi)\b/,
   /\byou\s+are\s+now\b/,
@@ -26,7 +31,11 @@ const INJECTION_PATTERNS = [
   /\broleplay\s+(as|sebagai)\b/,
   // Jailbreak
   /jail\s*-?\s*break/,
+<<<<<<< HEAD
   /\bdan\s+mode\b/,
+=======
+  /\bdo\s+anything\s+now\b/,
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
   /\bdeveloper\s+mode\b/,
   /\bmode\s+(pengembang|developer|bebas)\b/,
   // Mengincar API key
@@ -98,4 +107,8 @@ function validateChatInput(req, res, next) {
 }
 
 module.exports = validateChatInput;
+<<<<<<< HEAD
 module.exports.validateChatInput = validateChatInput; // jaga-jaga kalau di-import bernama
+=======
+// module.exports.validateChatInput = validateChatInput; // jaga-jaga kalau di-import bernama
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5

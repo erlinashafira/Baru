@@ -34,6 +34,11 @@ async function login(req, res) {
     // Cek ke database, tetap jalankan bcrypt.compare walau user tidak ada
     const admin = await adminModel.getByUsername(username);
     const hash = admin ? admin.password_hash : DUMMY_HASH;
+<<<<<<< HEAD
+=======
+    
+    // (Log debugging sudah dihapus agar bersih)
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
     const cocok = await bcrypt.compare(password, hash);
 
     if (!admin || !cocok) {
@@ -50,8 +55,11 @@ async function login(req, res) {
       req.session.adminId = admin.id;
       req.session.adminUsername = admin.username;
 
+<<<<<<< HEAD
       // Pastikan sesi sudah tersimpan sebelum respons dikirim,
       // supaya redirect ke /admin tidak "kehilangan" sesi
+=======
+>>>>>>> 5c516b5cc1232c2af6bbf42858bc08b43c7820c5
       req.session.save((errSave) => {
         if (errSave) {
           console.error('Gagal menyimpan sesi:', errSave.message);
